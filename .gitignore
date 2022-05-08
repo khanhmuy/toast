@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+
+# System Files
+.DS_Store
+thumbs.db
+
+# IDE stuff
+/.idea
+/.vscode
+
+# Config Files
+/data
+.env
+
+# Launch file
+bot.cmd
+
+package-lock.json
+
+# Indev
+/Commands/Music
+/Commands/Moderation
