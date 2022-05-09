@@ -20,20 +20,19 @@ module.exports = {
                     .addChannelOption(option => option.setName('channel')
                         .setDescription('The channel to set as the suggestion channel.')
                         .setRequired(true))),
-    async execute(interaction, client) {
-        console.log(interaction);
+    async execute(interaction) {
         if (interaction.options.getSubcommand() === 'logging_channel') {
             if (interaction.options.getBoolean('enable') === false) {
-                client.data.set(`guild.${message.guild.id}.logChannel`, null);
+                interaction.client.data.set(`guild.${interaction.guild.id}.logChannel`, null);
                 await interaction.reply({content: 'Logging has been disabled for this guild.', ephemeral: true});
             } else {
                 if (interaction.options.getChannel('channel') === null) {
                     await interaction.reply({content: 'You must provide a channel.', ephemeral: true});
                 } else {
                     const channel = interaction.options.getChannel('channel').id;
-                    client.data.ensure(`guild.${message.guild.id}.logChannel`, channel);
-                    client.data.set(`guild.${message.guild.id}.logChannel`, channel);
-                    const replyChannel = ('<#' + client.data.get(`guild.${message.guild.id}.logChannel`) + '>');
+                    interaction.client.data.ensure(`guild.${interaction.guild.id}.logChannel`, channel);
+                    interaction.client.data.set(`guild.${interaction.guild.id}.logChannel`, channel);
+                    const replyChannel = ('<#' + interaction.client.data.get(`guild.${interaction.guild.id}.logChannel`) + '>');
                     const embed = new MessageEmbed()
                         .setTitle('Success!')
                         .setColor('GREEN')
@@ -44,15 +43,15 @@ module.exports = {
             }
         } if (interaction.options.getSubcommand() === 'suggestion_channel') {
             if (interaction.options.getBoolean('enable') === false) {
-                client.data.set(`guild.${message.guild.id}.suggestionChannel`, null);
+                interaction.client.data.set(`guild.${interaction.guild.id}.suggestionChannel`, null);
             } else {
                 if (interaction.options.getChannel('channel') === null) {
                     await interaction.reply({content: 'You must provide a channel.', ephemeral: true});
                 } else {
                     const channel = interaction.options.getChannel('channel').id;
-                    client.data.ensure(`guild.${message.guild.id}.suggestionChannel`, channel);
-                    client.data.set(`guild.${message.guild.id}.suggestionChannel`, channel);
-                    const replyChannel = ('<#' + client.data.get(`guild.${message.guild.id}.suggestionChannel`) + '>');
+                    interaction.client.data.ensure(`guild.${interaction.guild.id}.suggestionChannel`, channel);
+                    interaction.client.data.set(`guild.${interaction.guild.id}.suggestionChannel`, channel);
+                    const replyChannel = ('<#' + interaction.client.data.get(`guild.${interaction.guild.id}.suggestionChannel`) + '>');
                     const embed = new MessageEmbed()
                         .setTitle('Success!')
                         .setColor('GREEN')
