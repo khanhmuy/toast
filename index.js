@@ -21,7 +21,6 @@ client.data = new Enmap({
 	autoFetch: true,
 	cloneLevel: 'deep',
 });
-console.log(client.data)
 
 const commandFolders = fs.readdirSync('./commands');
 const loggingFiles = fs.readdirSync('./events/logging').filter(file => file.endsWith('.js'));

@@ -11,6 +11,7 @@ const token = process.env.DISCORD_TOKEN;
 const commands = [];
 const commandFolders = fs.readdirSync('./commands');
 
+console.log('Started refreshing application (/) commands.');
 for (const folder of commandFolders) {
 	if (folder.endsWith('.js')) {
         console.log(chalk.red(`File (${folder}) not in subdirectory, please move it. File has been ignored.`));
@@ -26,6 +27,15 @@ for (const folder of commandFolders) {
 
 const rest = new REST({ version: '9' }).setToken(token);
 
-rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
-	.then(() => console.log('Successfully registered application commands.'))
-	.catch(console.error);
+(async () => {
+	try {
+		await rest.put(
+			Routes.applicationGuildCommands(clientId, guildId),
+			{ body: commands },
+		);
+
+		console.log('Successfully reloaded application (/) commands.');
+	} catch (error) {
+		console.error(error);
+	}
+})();
