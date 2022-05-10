@@ -12,7 +12,15 @@ async function error(err) {
 }
 
 require('dotenv').config();
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_VOICE_STATES] });
+const client = new Client({
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MEMBERS,
+		Intents.FLAGS.GUILD_MESSAGES, 
+		Intents.FLAGS.GUILD_PRESENCES, 
+		Intents.FLAGS.GUILD_BANS, 
+		Intents.FLAGS.GUILD_VOICE_STATES
+	]});
 
 client.commands = new Collection();
 client.data = new Enmap({

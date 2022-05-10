@@ -19,7 +19,7 @@ module.exports = {
                         .setRequired(true))
                     .addChannelOption(option => option.setName('channel')
                         .setDescription('The channel to set as the suggestion channel.')
-                        .setRequired(true))),
+                        .setRequired(false))),
     async execute(interaction) {
         if (interaction.options.getSubcommand() === 'logging_channel') {
             if (interaction.options.getBoolean('enable') === false) {
