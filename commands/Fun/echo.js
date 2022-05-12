@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 module.exports = {
+    guildOnly: true,
     data: new SlashCommandBuilder()
         .setName('echo')
         .setDescription('make me say something stupid ig')

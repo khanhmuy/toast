@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const Vibrant = require('node-vibrant');
 module.exports = {
+    guildOnly: true,
     data: new SlashCommandBuilder()
         .setName('serverinfo')
         .setDescription('Replies with server info.'),

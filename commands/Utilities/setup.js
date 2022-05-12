@@ -2,10 +2,11 @@ const {MessageEmbed, Permissions} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     permissions: [Permissions.FLAGS.ADMINISTRATOR],
+    guildOnly: true,
     data: new SlashCommandBuilder()
         .setName('setup')
             .setDescription('Setup various functions for the bot')
-            .addSubcommand(command => command.setName('logging_channel')
+            .addSubcommand(command => command.setName('logging')
                 .setDescription('Set the logging channel of this guild.')
                     .addBooleanOption(option => option.setName('enable')
                         .setDescription('Whether or not to enable logging.')
@@ -13,7 +14,7 @@ module.exports = {
                     .addChannelOption(option => option.setName('channel')
                         .setDescription('The channel to set as the logging channel.')
                         .setRequired(false)))
-            .addSubcommand(command => command.setName('suggestion_channel')
+            .addSubcommand(command => command.setName('suggestion')
                 .setDescription('Set the suggestion channel of this guild.')
                     .addBooleanOption(option => option.setName('enable')
                         .setDescription('Whether or not to enable logging.')

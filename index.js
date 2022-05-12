@@ -75,6 +75,13 @@ client.on('interactionCreate', async interaction => {
 	const command = client.commands.get(interaction.commandName);
 	if (!command) return;
 	const member = interaction.member;
+
+	//Check if command is guild only
+	if (command.guildOnly === true && message.guild === null) {
+		return message.reply({content: 'That command is guild only!', allowedMentions: { repliedUser: false }});
+	}
+
+	//Permissions system
 	if (member.permissions.has(command.permissions) === false) {
 		return interaction.reply({content: 'You do not have the required permissions to use this command!', ephemeral: true});
 	}
