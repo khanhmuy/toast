@@ -15,8 +15,7 @@ module.exports = {
     async execute(interaction) {
         try {
             const query = interaction.options.getString('query'); 
-            const link = `https://www.youtube.com/results?search_query=${query.replace(' ', '%20')}`;
-            console.log(link);
+            const link = `https://www.youtube.com/results?search_query=${query.replace(/\u0020/g, '%20')}`;
             const result = await ytsr(query, { limit: [8] });
             const embed = new MessageEmbed()
                 .setTitle('Results for ' + query)
