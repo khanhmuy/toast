@@ -72,11 +72,12 @@ for (const folder of commandFolders) {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-
 	const command = client.commands.get(interaction.commandName);
-
 	if (!command) return;
-
+	const member = interaction.member;
+	if (member.permissions.has(command.permissions) === false) {
+		return interaction.reply({content: 'You do not have the required permissions to use this command!', ephemeral: true});
+	}
 	try {
 		await command.execute(interaction);
 	} catch (error) {

@@ -1,6 +1,7 @@
 const {MessageEmbed, Permissions} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
+    permissions: [Permissions.FLAGS.ADMINISTRATOR],
     data: new SlashCommandBuilder()
         .setName('setup')
             .setDescription('Setup various functions for the bot')
