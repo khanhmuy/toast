@@ -1,6 +1,8 @@
-const { Client, Collection, Intents } = require('discord.js');
+//Import node modules
+const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const chalk = require('chalk');
 const fs = require('fs');
+require('dotenv').config();
 const Enmap = require('enmap');
 const { Server } = require('http');
 
@@ -11,7 +13,7 @@ async function error(err) {
 	process.exit(0);
 }
 
-require('dotenv').config();
+//Establish the client
 const client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
@@ -22,6 +24,7 @@ const client = new Client({
 		Intents.FLAGS.GUILD_VOICE_STATES
 	]});
 
+//Establish the data collection
 client.commands = new Collection();
 client.data = new Enmap({
 	name: 'data',
@@ -30,10 +33,12 @@ client.data = new Enmap({
 	cloneLevel: 'deep',
 });
 
+//Define folders
 const commandFolders = fs.readdirSync('./commands');
 const loggingFiles = fs.readdirSync('./events/logging').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
+//Import commands & events
 console.log('--Events--')
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
@@ -60,7 +65,7 @@ console.log('--Commands--')
 for (const folder of commandFolders) {
     if (folder.endsWith('.js')) {
         console.log(chalk.red(`File (${folder}) not in subdirectory, please move it. File has been ignored.`));
-        return;
+        continue;
     }
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
@@ -76,8 +81,16 @@ client.on('interactionCreate', async interaction => {
 	if (!command) return;
 	const member = interaction.member;
 
+	//Command counter
+	if (!interaction.client.data.get('cmdCounterTotal')) interaction.client.data.set('cmdCounterTotal', 0);
+	try {
+		interaction.client.data.set('cmdCounterTotal', parseInt(interaction.client.data.get('cmdCounterTotal')) + 1);
+	} catch (err) {
+		console.log('Can no longer store command count!');
+	}
+
 	//Check if command is guild only
-	if (command.guildOnly === true && message.guild === null) {
+	if (command.guildOnly === true && interaction.guild === null) {
 		return message.reply({content: 'That command is guild only!', allowedMentions: { repliedUser: false }});
 	}
 
@@ -85,11 +98,19 @@ client.on('interactionCreate', async interaction => {
 	if (member.permissions.has(command.permissions) === false) {
 		return interaction.reply({content: 'You do not have the required permissions to use this command!', ephemeral: true});
 	}
+
+	//Execute the command
 	try {
 		await command.execute(interaction);
 	} catch (error) {
 		console.log(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		const embed = new MessageEmbed()
+			.setTitle('Error')
+			.setDescription(`${error}`)
+			.setThumbnail('https://images-ext-1.discordapp.net/external/9yiAQ7ZAI3Rw8ai2p1uGMsaBIQ1roOA4K-ZrGbd0P_8/https/cdn1.iconfinder.com/data/icons/web-essentials-circle-style/48/delete-512.png?width=461&height=461')
+			.setColor('RED')
+			.setTimestamp();
+		await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
 });
 
