@@ -23,7 +23,7 @@ module.exports = {
                         .setDescription('The channel to set as the suggestion channel.')
                         .setRequired(false))),
     async execute(interaction) {
-        if (interaction.options.getSubcommand() === 'logging_channel') {
+        if (interaction.options.getSubcommand() === 'logging') {
             if (interaction.options.getBoolean('enable') === false) {
                 interaction.client.data.set(`guild.${interaction.guild.id}.logChannel`, null);
                 await interaction.reply({content: 'Logging has been disabled for this guild.', ephemeral: true});
@@ -43,9 +43,10 @@ module.exports = {
                     await interaction.reply({embeds: [embed], ephemeral: true});
                 }
             }
-        } if (interaction.options.getSubcommand() === 'suggestion_channel') {
+        } if (interaction.options.getSubcommand() === 'suggestion') {
             if (interaction.options.getBoolean('enable') === false) {
                 interaction.client.data.set(`guild.${interaction.guild.id}.suggestionChannel`, null);
+                interaction.reply('Suggestions have been disabled for this guild.');
             } else {
                 if (interaction.options.getChannel('channel') === null) {
                     await interaction.reply({content: 'You must provide a channel.', ephemeral: true});
