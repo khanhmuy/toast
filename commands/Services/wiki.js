@@ -13,6 +13,7 @@ module.exports = {
                 .setDescription('The search term.');
         }),
     async execute(interaction) {
+        await interaction.deferReply();
         try {
             const query = interaction.options.getString('query');
             const res = await tldr(query);
@@ -39,10 +40,10 @@ module.exports = {
                 .addField('\u200b', extract)
                 .setColor(color)
                 .setTimestamp()
-            interaction.reply({ embeds: [embed] });
+            interaction.editReply({ embeds: [embed] });
         } catch (error) {
             console.log(error);
-            interaction.reply({content: 'There was an error while executing this command!', ephemeral: true});
+            interaction.editReply({content: 'There was an error while executing this command!', ephemeral: true});
         }
     },
 };

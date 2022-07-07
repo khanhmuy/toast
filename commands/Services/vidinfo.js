@@ -79,7 +79,7 @@ module.exports = {
             await interaction.editReply({ embeds: [embed], components: [row]});
         } catch (err) {
             console.log(err);
-            return interaction.reply({content: 'No results found!', ephemeral: true});
+            return interaction.editReply({content: 'No results found!', ephemeral: true});
         }
     },
 };

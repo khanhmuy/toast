@@ -12,6 +12,7 @@ module.exports= {
                 .setRequired(false);
         }),
     async execute(interaction) {
+        await interaction.deferReply();
         let color = 'BLACK';
         let status = 'Offline / Invisible';
         let member = null
@@ -58,6 +59,6 @@ module.exports= {
                 { name: 'Account identification', value: 'Tag: ' + user.tag + '\nID: ' + user.id, inline: true },
             )
             .setTimestamp()
-        interaction.reply({embeds: [embed]});
+        interaction.editReply({embeds: [embed]});
     }
 };

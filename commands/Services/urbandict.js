@@ -13,11 +13,12 @@ module.exports = {
         }),
     async execute(interaction) {
         try {
+            await interaction.deferReply();
             const input = interaction.options.getString('searchterm');
             const query = input.replace(' ', '%20');
             const url = `http://api.urbandictionary.com/v0/define?term=${query}`;
             const { data } = await axios.get(url);
-            if (!data.list[0]) return interaction.reply({content: 'No results found!', ephemeral: true});
+            if (!data.list[0]) return interaction.editReply({content: 'No results found!', ephemeral: true});
             const embed = new MessageEmbed()
                 .setTitle(`Definition of: ${data.list[0].word}`)
                 .setDescription(`${data.list[0].definition}`)
@@ -38,10 +39,10 @@ module.exports = {
                         .setURL(data.list[0].permalink)
                         .setLabel('View Definition on Urban Dictionary')
                 )
-            interaction.reply({embeds: [embed], components: [row]});
+            interaction.editReply({embeds: [embed], components: [row]});
         } catch (error) {
             console.log(error);
-            interaction.reply({content: 'There was an error while executing this command!', ephemeral: true});
+            interaction.editReply({content: 'There was an error while executing this command!', ephemeral: true});
         }
     },
 };

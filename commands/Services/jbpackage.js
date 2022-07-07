@@ -13,11 +13,11 @@ module.exports = {
                 .setDescription('The search term.');
         }),
     async execute(interaction) {
+        await interaction.deferReply();
         const input = interaction.options.getString('query');
         const query = input.replace(' ', '%20');
         const info = await axios.get('https://api.canister.me/v1/community/packages/search?query=' + query + '&searchFields=identifier,name,author,maintainer&responseFields=identifier,name,description,packageIcon,repository.uri,repository.name,author,latestVersion,depiction,section,price,maintainer');
         if (!info.data.data[0]) return interaction.reply({content: 'No results found!', ephemeral: true});
-        const embed = new MessageEmbed()
         try {
             let color = null
             try {
@@ -60,10 +60,10 @@ module.exports = {
                         .setEmoji('📦')
                         .setLabel('Add Repository'),
                 );
-            interaction.reply({ embeds: [embed], components:[row]});
+            interaction.editReply({ embeds: [embed], components:[row]});
         } catch (err) {
             console.log(err);
-            interaction.reply({content: 'An unknown error occurred!', ephemeral: true});
+            interaction.editReply({content: 'An unknown error occurred!', ephemeral: true});
         }
     }
 };

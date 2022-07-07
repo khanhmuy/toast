@@ -13,6 +13,7 @@ module.exports = {
                 .setDescription('The search term.');
         }),
     async execute(interaction) {
+        await interaction.deferReply();
         try {
             const query = interaction.options.getString('query'); 
             const link = `https://www.youtube.com/results?search_query=${query.replace(/\u0020/g, '%20')}`;
@@ -27,10 +28,10 @@ module.exports = {
                 if (result.type !== 'video') return;
                 embed.addField(result.title, `Channel: [${result.author.name}](${result.author.url})\n 👀: ${result.views} \nDuration: ${result.duration}\nUploaded ${result.uploadedAt}\n\n[View in YouTube](${result.url})`)
             })
-            await interaction.reply({embeds: [embed]});
+            await interaction.editReply({embeds: [embed]});
         } catch (error) {
             console.log(error);
-            interaction.reply({content: 'There was an error while executing this command!', ephemeral: true});
+            interaction.editReply({content: 'There was an error while executing this command!', ephemeral: true});
         }
     },
 };
