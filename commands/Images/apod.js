@@ -1,6 +1,6 @@
 const axios = require('axios');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
-const {SlashCommandBuilder} = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const {SlashCommandBuilder} = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('apod')
@@ -14,17 +14,17 @@ module.exports = {
             const res = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`);
             let hdurl = res.data.hdurl;
             if (hdurl == undefined) {hdurl = 'https://hmuy.ml/404'};
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setTitle(res.data.title)
                 .setURL(res.data.url)
                 .setDescription(res.data.explanation)
                 .setColor('#105BD8')
                 .setImage(res.data.url)
                 .setTimestamp()
-            const row = new ActionRowBuilder()
+            const row = new MessageActionRow()
                 .addComponents(
-                    new ButtonBuilder()
-                        .setStyle('Link')
+                    new MessageButton()
+                        .setStyle('LINK')
                         .setURL(hdurl)
                         .setLabel('View Full Image')
                 )

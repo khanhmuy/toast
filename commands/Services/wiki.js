@@ -1,7 +1,7 @@
 const Vibrant = require('node-vibrant');
-const { EmbedBuilder } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const tldr = require('wikipedia-tldr');
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('wikipedia')
@@ -17,10 +17,6 @@ module.exports = {
         try {
             const query = interaction.options.getString('query');
             const res = await tldr(query);
-            if (res === null) {
-                interaction.editReply({content: 'No results found.'});
-                return;
-            }
             let color = null;
             let thumbnail = '';
             try {
@@ -37,13 +33,11 @@ module.exports = {
             } else {
                 extract = res.extract;
             }
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setTitle(res.title)
                 .setThumbnail(thumbnail)
                 .setDescription(res.description)
-                .addFields([
-                    {name: '\u200b', value: extract}
-                ])
+                .addField('\u200b', extract)
                 .setColor(color)
                 .setTimestamp()
             interaction.editReply({ embeds: [embed] });

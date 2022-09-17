@@ -1,8 +1,8 @@
 // this is a fucking bodge but ok
 const ytdl = require('ytdl-core');
 const axios = require('axios');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
-const { SlashCommandBuilder } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('videoinfo')
@@ -52,13 +52,13 @@ module.exports = {
             } catch {
                 description = 'Not available.';
             }
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setTitle(info.videoDetails.title)
                 .setColor('#ff0000')
                 .setURL(link)
                 .setThumbnail(info.videoDetails.thumbnails[3].url)
                 .setDescription(description)
-                .addFields([
+                .addFields(
                     { name: 'Date created', value: `${info.videoDetails.uploadDate}`, inline: true },
                     { name: 'Duration', value: `${duration}`, inline: true },
                     { name: 'Category:', value: `${info.videoDetails.category}`, inline: true },
@@ -67,12 +67,12 @@ module.exports = {
                     { name: 'Dislikes', value: `${dislikeCount}`, inline: true },
                     { name: 'Channel', value: `[${info.videoDetails.ownerChannelName}](${info.videoDetails.author.channel_url})`, inline: true },
                     { name: 'Subscribers', value: `${info.videoDetails.author.subscriber_count}`, inline: true }
-                ])
+                )
                 .setTimestamp()
-                const row = new ActionRowBuilder()
+                const row = new MessageActionRow()
                 .addComponents(
-                    new ButtonBuilder()
-                        .setStyle('Link')
+                    new MessageButton()
+                        .setStyle('LINK')
                         .setLabel('View Video on YouTube')
                         .setURL(link)
                 )

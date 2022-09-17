@@ -1,5 +1,5 @@
 //Import node modules
-const { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder } = require('discord.js');
+const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const chalk = require('chalk');
 const fs = require('fs');
 require('dotenv').config();
@@ -16,17 +16,13 @@ async function error(err) {
 //Establish the client
 const client = new Client({
 	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildPresences, 
-		GatewayIntentBits.GuildBans
-	],
-	partials: [
-		Partials.Channel
-	]
-});
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MEMBERS,
+		Intents.FLAGS.GUILD_MESSAGES, 
+		Intents.FLAGS.GUILD_PRESENCES, 
+		Intents.FLAGS.GUILD_BANS, 
+		Intents.FLAGS.GUILD_VOICE_STATES
+	]});
 
 //Establish the data collection
 client.commands = new Collection();
@@ -108,7 +104,7 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.log(error);
-		const embed = new EmbedBuilder()
+		const embed = new MessageEmbed()
 			.setTitle('Error')
 			.setDescription(`${error}`)
 			.setThumbnail('https://images-ext-1.discordapp.net/external/9yiAQ7ZAI3Rw8ai2p1uGMsaBIQ1roOA4K-ZrGbd0P_8/https/cdn1.iconfinder.com/data/icons/web-essentials-circle-style/48/delete-512.png?width=461&height=461')

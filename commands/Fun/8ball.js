@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require('discord.js');
-const {EmbedBuilder} = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const {MessageEmbed} = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('8ball')
@@ -38,8 +38,8 @@ module.exports = {
         ]
         const question = interaction.options.getString('question');
         const answer = (Math.floor(Math.random() * answers.length));
-        const embed = new EmbedBuilder()
-            .setColor('#FFC0CB')
+        const embed = new MessageEmbed()
+            .setColor('RANDOM')
             .setTitle('**Magic 8-Ball**')
             .setDescription(`**Your question**: ` + question + `\n**Our Magic 8-Ball Says**: ${answers[answer]}`)
         if (interaction.options.getBoolean('private') === true) {

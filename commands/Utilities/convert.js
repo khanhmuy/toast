@@ -1,5 +1,6 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
+const {MessageAttachment} = require('discord.js');
 const Canvas = require('canvas');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('convert')
@@ -54,7 +55,7 @@ module.exports = {
             const context = canvas.getContext('2d');
             context.fillStyle = hex;
             context.fillRect(0, 0, 128, 128);
-            const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), {name: 'color.png'});
+            const attachment = new MessageAttachment(canvas.toBuffer('image/png'), 'color.png');
             await interaction.reply({ content: `It's \`${hex.toUpperCase()}\``, files: [attachment] });
         }
         else if (interaction.options.getSubcommand() === 'hex2rgb') {
@@ -71,7 +72,7 @@ module.exports = {
             context.fillStyle = `#${interaction.options.getString('hex')}`;
             context.fillRect(0, 0, 128, 128);
             const buffer = canvas.toBuffer('image/png');
-            const attachment = new AttachmentBuilder(buffer, {name: 'color.png'});
+            const attachment = new MessageAttachment(buffer, 'color.png');
             await interaction.reply({ content: `It's \`${result.r}, ${result.g}, ${result.b}\``, files: [attachment] });
         }
     }

@@ -1,8 +1,9 @@
 require('dotenv').config();
 const chalk = require('chalk');
 const fs = require('node:fs');
-const { Routes } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 const clientId = process.env.CLIENT_ID;
 const token = process.env.DISCORD_TOKEN;
 
@@ -23,7 +24,7 @@ for (const folder of commandFolders) {
     }
 }
 
-const rest = new REST({ version: '10' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(token);
 
 (async () => {
 	try {

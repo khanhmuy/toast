@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require('discord.js');
-const {EmbedBuilder} = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const {MessageEmbed} = require('discord.js');
 const axios = require('axios');
 const Vibrant = require('node-vibrant');
 module.exports = {
@@ -13,14 +13,12 @@ module.exports = {
             let color = null;
             color = await Vibrant.from(res.data.memes[0].url).getPalette();
             color = color.Vibrant.hex;
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setColor(color)
                 .setTitle(res.data.memes[0].title)
                 .setImage(res.data.memes[0].url)
                 .setURL(res.data.memes[0].postLink)
-                .setFooter(
-                    {text: `Author: ${res.data.memes[0].author}`}
-                )
+                .setFooter(`Author: ${res.data.memes[0].author}`);
             await interaction.editReply({ embeds: [embed]});
         } catch (error) {
             console.log(error);

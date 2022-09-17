@@ -13,6 +13,9 @@ thumbs.db
 /data
 .env
 
+# Launch file
+bot.cmd
+
 package-lock.json
 
 # Indev

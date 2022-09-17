@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const {encode, decode} = require('bottomify');
 module.exports = {
     data: new SlashCommandBuilder()

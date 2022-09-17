@@ -1,4 +1,4 @@
-const {EmbedBuilder} = require('discord.js');
+const {MessageEmbed} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     name: 'messageCreate',
@@ -9,7 +9,7 @@ module.exports = {
                 if (message.content.includes(word)) {
                     message.delete();
                     const mention = '<@!' + message.author.id + '>';
-                    const embed = new EmbedBuilder()
+                    const embed = new MessageEmbed()
                         .setTitle('Fake or scam jailbreak detected!')
                         .setDescription('Your message contained the link to a fake jailbreak (' + word + ').\nIf you installed this jailbreak, remove it from your device immediately and try to get a refund if you paid for it. Jailbreaks never cost money and will not ask for any form of payment or survey to install them.')
                         .setColor('#ff0000')
@@ -21,7 +21,7 @@ module.exports = {
                 if (message.content.includes(word)) {
                     message.delete();
                     const mention = '<@!' + message.author.id + '>';
-                    const embed = new EmbedBuilder()
+                    const embed = new MessageEmbed()
                         .setTitle('Fake or scam iDevice unlock detected!')
                         .setDescription('Your message contained the link to a fake / scam iDevice unlock (' + word + '). Your message will be removed')
                         .setColor('#ff0000')

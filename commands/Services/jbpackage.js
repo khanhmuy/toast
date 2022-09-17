@@ -1,5 +1,6 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const axios = require('axios');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const Vibrant = require('node-vibrant');
 module.exports = {
     data: new SlashCommandBuilder()
@@ -32,39 +33,37 @@ module.exports = {
                 color = '#fccc04'
                 info.data.data[0].packageIcon = undefined
             }
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setTitle(info.data.data[0].name || 'what')
                 .setDescription(info.data.data[0].description || 'No description provided.')
                 .setThumbnail(info.data.data[0].packageIcon || 'https://repo.packix.com/api/Packages/60bfb71987ca62001c6585e6/icon/download?size=medium&hash=2')
                 .setColor(color || '#fccc04')
-                .addFields([
+                .addFields(
                     { name: 'Author', value: info.data.data[0].author.toString() || 'Unknown', inline: true },
                     { name: 'Version', value: info.data.data[0].latestVersion.toString() || 'Unknown', inline: true },
                     { name: 'Price', value: info.data.data[0].price.toString() || 'Unknown', inline: true },
                     { name: 'Bundle ID', value: info.data.data[0].identifier.toString(), inline: true },
                     { name: 'Repository', value: `[${info.data.data[0].repository.name}](${info.data.data[0].repository.uri})\n${info.data.data[0].repository.uri}`, inline: true },
-                ])
-                .setFooter(
-                    {text: 'Powered by Canister.'}
                 )
+                .setFooter('Powered by Canister')
                 .setTimestamp()
-            const row = new ActionRowBuilder()
+            const row = new MessageActionRow()
                 .addComponents(
-                    new ButtonBuilder()
-                        .setStyle('Link')
+                    new MessageButton()
+                        .setStyle('LINK')
                         .setURL(info.data.data[0].depiction || 'https://404.github.io/')
                         .setEmoji('🔍')
                         .setLabel('View Depiction'),
-                    new ButtonBuilder()
-                        .setStyle('Link')
+                    new MessageButton()
+                        .setStyle('LINK')
                         .setURL(`https://repos.slim.rocks/repo/?repoUrl=${info.data.data[0].repository.uri}`)
                         .setEmoji('📦')
                         .setLabel('Add Repository'),
                 );
             interaction.editReply({ embeds: [embed], components:[row]});
-        } catch (error) {
-            interaction.editReply({content: 'Something went wrong, please try again later.', ephemeral: true});
-            console.log(error);
+        } catch (err) {
+            console.log(err);
+            interaction.editReply({content: 'An unknown error occurred!', ephemeral: true});
         }
     }
 };

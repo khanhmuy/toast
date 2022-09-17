@@ -1,5 +1,5 @@
-const {SlashCommandBuilder} = require('discord.js');
-const {EmbedBuilder, ActionRowBuilder, ButtonBuilder} = require('discord.js');
+const {SlashCommandBuilder} = require('@discordjs/builders');
+const {MessageEmbed, MessageActionRow, MessageButton} = require('discord.js');
 const axios = require('axios');
 const Vibrant = require('node-vibrant');
 module.exports = {
@@ -13,16 +13,16 @@ module.exports = {
             let color = null
             color = await Vibrant.from(res.data.image).getPalette()
             color = color.Vibrant.hex
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setTitle('Random Fox!')
                 .setImage(res.data.image)
                 .setColor(color)
                 .setTimestamp()
                 .setURL(res.data.link)
-            const row = new ActionRowBuilder()
+            const row = new MessageActionRow()
                 .addComponents(
-                    new ButtonBuilder()
-                        .setStyle('Link')
+                    new MessageButton()
+                        .setStyle('LINK')
                         .setURL(res.data.link)
                         .setLabel('View Orginal Image')
                 )
