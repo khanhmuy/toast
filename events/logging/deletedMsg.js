@@ -1,19 +1,21 @@
-const {MessageEmbed} = require('discord.js');
+const {EmbedBuilder} = require('discord.js');
 module.exports = {
     name: 'messageDelete',
     async execute (client, message) {
         try {
             const logChannel = client.channels.cache.get(client.data.get(`guild.${message.guild.id}.logChannel`));
             if (logChannel === undefined) return;
-            let deleteEmbed = new MessageEmbed()
-                .setAuthor(message.author.username + '#' + message.author.discriminator, `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`)
+            let deleteEmbed = new EmbedBuilder()
+                .setAuthor({name: message.author.username + '#' + message.author.discriminator, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
                 .setDescription(`:wastebasket: Message deleted in <#${message.channelId}>`)
-                .setColor("RED")
-                .addField("Message", `${message.content}`)
-                .addField(`Message ID`, `${message.id}`, true)
-                .addField(`Author`, `<@!${message.author.id}>`, true)
-                .addField(`Author ID`, `${message.author.id}`, true)
-                .setFooter(`${message.guild.name}`)
+                .setColor('#FF4046')
+                .addFields([
+                    {name: 'Message', value: `${message.content}`},
+                    {name: 'Message ID', value: `${message.id}`, inline: true},
+                    {name: 'Author', value: `<@!${message.author.id}>`, inline: true},
+                    {name: 'Author ID', value: `${message.author.id}`, inline: true}
+                ])
+                .setFooter({text: `${message.guild.name}`})
                 .setTimestamp();
             logChannel.send({embeds: [deleteEmbed]});
         } catch (err) {

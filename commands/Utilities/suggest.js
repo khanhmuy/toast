@@ -1,5 +1,4 @@
-const { MessageEmbed } = require('discord.js');
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('suggest')
@@ -19,11 +18,11 @@ module.exports = {
 		if (!interaction.client.data.get(`guild.${interaction.guild.id}.suggestionChannel`)) {
 			interaction.reply({content: 'Suggestions are disabled in this guild!', ephemeral: true});
 		} else {
-			const embed = new MessageEmbed()
+			const embed = new EmbedBuilder()
 				.setTitle(`Suggestion #${suggestionnum}`)
 				.setDescription(interaction.options.getString('suggestion'))
-				.setColor('BLUE')
-				.setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }));
+				.setColor('#C0DDFF')
+				.setAuthor({name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 })});
 			const channel = interaction.client.channels.cache.get(interaction.client.data.get(`guild.${interaction.guild.id}.suggestionChannel`));
 			channel.send({ embeds: [embed] }).then(embedMessage => {
 				embedMessage.react('<:upvote:975193113989636167>');

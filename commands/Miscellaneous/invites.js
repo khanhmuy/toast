@@ -1,8 +1,7 @@
-const {Permissions, MessageEmbed} = require('discord.js');
+const {PermissionsBitField, EmbedBuilder, SlashCommandBuilder} = require('discord.js');
 const moment = require('moment');
-const {SlashCommandBuilder} = require('@discordjs/builders');
 module.exports = {
-    permissions: [Permissions.FLAGS.ADMINISTRATOR],
+    permissions: [PermissionsBitField.Flags.Administrator],
     guildOnly: true,
     data: new SlashCommandBuilder()
         .setName('serverinvites')
@@ -10,17 +9,21 @@ module.exports = {
     async execute(interaction) {
         const guild = await interaction.guild.fetch();
         const invites = await interaction.guild.invites.fetch();
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle(`Invites for ${interaction.guild.name}`)
             .setThumbnail(guild.iconURL())
-            .setColor('BLUE')
+            .setColor('#FFC0CB')
             .setTimestamp()
-            .setFooter('Last Updated')
+            .setFooter(
+                {text: 'Last Updated'}
+            )
         if (invites.size === 0) {
             embed.setDescription('No invites found.');
         } else {
             invites.forEach(invite => {
-                embed.addField(`${invite.code}`, `Uses: ${invite.uses}\nMax uses: ${invite.maxUses}\nCreated at: ${moment(invite.createdTimestamp).format('LLLL')}\nCreated by: <@!${invite.inviter.id}>\nChannel: <#${invite.channel.id}>`)
+                embed.addFields([
+                    {name: `${invite.code}`, value: `Uses: ${invite.uses}\nMax uses: ${invite.maxUses}\nCreated at: ${moment(invite.createdTimestamp).format('LLLL')}\nCreated by: <@!${invite.inviter.id}>\nChannel: <#${invite.channel.id}>`}
+                ])
             });
         }
         interaction.reply({embeds: [embed]});

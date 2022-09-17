@@ -1,7 +1,7 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const {SlashCommandBuilder} = require('discord.js');
 const axios = require('axios');
 const Vibrant = require('node-vibrant');
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('cat')
@@ -13,16 +13,16 @@ module.exports = {
             let color = null
             color = await Vibrant.from(res.data.file).getPalette()
             color = color.Vibrant.hex
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                     .setTitle('Random Cat!')
                     .setColor(color)
                     .setTimestamp()
                     .setImage(res.data.file)
                     .setURL(res.data.file)
-                const row = new MessageActionRow()
+                const row = new ActionRowBuilder()
                     .addComponents(
-                        new MessageButton()
-                            .setStyle('LINK')
+                        new ButtonBuilder()
+                            .setStyle('Link')
                             .setURL(res.data.file)
                             .setLabel('View Orginal Image')
                     )

@@ -1,7 +1,7 @@
-const {MessageEmbed, Permissions} = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const {EmbedBuilder, PermissionsBitField} = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
-    permissions: [Permissions.FLAGS.ADMINISTRATOR],
+    permissions: [PermissionsBitField.Flags.Administrator],
     guildOnly: true,
     data: new SlashCommandBuilder()
         .setName('setup')
@@ -35,9 +35,9 @@ module.exports = {
                     interaction.client.data.ensure(`guild.${interaction.guild.id}.logChannel`, channel);
                     interaction.client.data.set(`guild.${interaction.guild.id}.logChannel`, channel);
                     const replyChannel = ('<#' + interaction.client.data.get(`guild.${interaction.guild.id}.logChannel`) + '>');
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setTitle('Success!')
-                        .setColor('GREEN')
+                        .setColor('#18DB4C')
                         .setTimestamp()
                         .setDescription(`Logging channel is now ${replyChannel}`);
                     await interaction.reply({embeds: [embed], ephemeral: true});
@@ -55,9 +55,9 @@ module.exports = {
                     interaction.client.data.ensure(`guild.${interaction.guild.id}.suggestionChannel`, channel);
                     interaction.client.data.set(`guild.${interaction.guild.id}.suggestionChannel`, channel);
                     const replyChannel = ('<#' + interaction.client.data.get(`guild.${interaction.guild.id}.suggestionChannel`) + '>');
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setTitle('Success!')
-                        .setColor('GREEN')
+                        .setColor('#18DB4C')
                         .setTimestamp()
                         .setDescription(`Suggestion channel is now ${replyChannel}`);
                     await interaction.reply({embeds: [embed], ephemeral: true});
