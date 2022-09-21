@@ -45,7 +45,7 @@ module.exports = {
             try {
                 description = info.videoDetails.description;
                 if (description.length > 3995) {
-                    description = description.slice(0, 995) + ' (...)';
+                    description = description.slice(0, 3995) + ' (...)';
                 } else {
                     description = description;
                 }

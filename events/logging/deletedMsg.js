@@ -18,8 +18,6 @@ module.exports = {
                 .setFooter({text: `${message.guild.name}`})
                 .setTimestamp();
             logChannel.send({embeds: [deleteEmbed]});
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     },
 };

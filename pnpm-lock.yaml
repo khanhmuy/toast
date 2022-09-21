@@ -22,7 +22,7 @@ specifiers:
   systeminformation: ^5.11.15
   uwuifier: ^4.0.5
   wikipedia-tldr: ^2.0.1
-  ytdl-core: ^4.11.0
+  ytdl-core: ^4.11.2
   ytsr: ^3.8.0
 
 dependencies:
@@ -47,7 +47,7 @@ dependencies:
   systeminformation: 5.11.15
   uwuifier: 4.0.5
   wikipedia-tldr: 2.0.1
-  ytdl-core: 4.11.0
+  ytdl-core: 4.11.2
   ytsr: 3.8.0
 
 packages:
@@ -1660,8 +1660,8 @@ packages:
       yargs-parser: 20.2.9
     dev: false
 
-  /ytdl-core/4.11.0:
-    resolution: {integrity: sha512-Q3hCLiUA9AOGQXzPvno14GN+HgF9wsO1ZBHlj0COTcyxjIyFpWvMfii0UC4/cAbVaIjEdbWB71GdcGuc4J1Lmw==}
+  /ytdl-core/4.11.2:
+    resolution: {integrity: sha512-D939t9b4ZzP3v0zDvehR2q+KgG97UTgrTKju3pOPGQcXtl4W6W5z0EpznzcJFu+OOpl7S7Ge8hv8zU65QnxYug==}
     engines: {node: '>=12'}
     dependencies:
       m3u8stream: 0.8.6

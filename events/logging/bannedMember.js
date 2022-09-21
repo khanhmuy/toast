@@ -15,7 +15,6 @@ module.exports = {
                 )
                 .setTimestamp();
             logChannel.send({embeds: [embed]});
-        } catch (err) {
-        }
+        } catch (err) {}
     }
 };
