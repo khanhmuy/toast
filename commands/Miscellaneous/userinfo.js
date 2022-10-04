@@ -22,29 +22,29 @@ module.exports= {
             } else {
                 member = interaction.guild.members.cache.get(interaction.options.getUser('user').id);
             }
-                const user = member.user;
-                try {
-                    switch(member.presence.status){
-                        case('online'):
-                            color = '#18DB4C'
-                            status = 'Online'
-                            break
-                        case('idle'):
-                            color = '#F3FF52'
-                            status = 'Idle'
-                            break
-                        case('dnd'):
-                            color = '#FF4046'
-                            status = 'Do Not Disturb'
-                            break
-                        case('null'):
-                            color = '#000000'
-                            status = 'Offline / Invisible'
-                      }
-                } catch {
-                    color = 'BLACK';
-                    status = 'Offline / Invisible';
-                }
+            const user = member.user;
+            try {
+                switch(member.presence.status){
+                    case('online'):
+                        color = '#18DB4C'
+                        status = 'Online'
+                        break
+                    case('idle'):
+                        color = '#F3FF52'
+                        status = 'Idle'
+                        break
+                    case('dnd'):
+                        color = '#FF4046'
+                        status = 'Do Not Disturb'
+                        break
+                    case('null'):
+                        color = '#000000'
+                        status = 'Offline / Invisible'
+                  }
+            } catch {
+                color = 'BLACK';
+                status = 'Offline / Invisible';
+            }
             const roles = member.roles.cache.filter(r => r.name !== "@everyone").map(r => r).join(" | ") || 'No Roles';
             const embed = new EmbedBuilder()
                 .setTitle('User information of ' + user.tag)
@@ -54,7 +54,7 @@ module.exports= {
                 .setDescription('[Avatar](' + user.displayAvatarURL({ dynamic:true })+'?size=1024' + ')')
                 .addFields([
                     { name: 'Account Registered Date', value: `${moment(user.createdAt).format('LLLL')} (${moment().diff(user.createdAt, 'years')} years ago)`, inline: true },
-                    { name: 'Server Join Date', value: `${moment(member.createdAt).format('LLLL')} (${moment().diff(member.createdAt, 'years')} years ago)`, inline: true },
+                    { name: 'Server Join Date', value: `${moment(member.joinedTimestamp).format('LLLL')} (${moment().diff(member.createdAt, 'years')} years ago)`, inline: true },
                     { name: 'Online presence', value: '' + status || 'Offline / Invisible', inline: true },
                     { name: 'Roles', value: '' + roles, inline: true },
                     { name: 'Account identification', value: 'Tag: ' + user.tag + '\nID: ' + user.id, inline: true },
