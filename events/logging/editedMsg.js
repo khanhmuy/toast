@@ -7,6 +7,9 @@ module.exports = {
                 if (embedType === 'image' || 'video') {};
                 const embedType = message.reactions.message.embeds[1].type;
             } catch {}
+            if (message.author.bot == true) return;
+            const embeds = message.reactions.message.embeds;
+            if (embeds.length > 0) return;
             const logChannel = client.channels.cache.get(client.data.get(`guild.${message.guild.id}.logChannel`));
             if (logChannel === undefined) return;
             let deleteEmbed = new EmbedBuilder()
