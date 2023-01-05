@@ -3,7 +3,6 @@ module.exports = {
     name: 'messageUpdate',
     async execute (client, message) {
         try {
-            console.log(message.reactions.message.embeds)
             try {
                 if (embedType === 'image' || 'video') {};
                 const embedType = message.reactions.message.embeds[1].type;
@@ -23,14 +22,13 @@ module.exports = {
                 ])
                 .setFooter({text: `${message.guild.name}`})
                 .setTimestamp();
-                
+
             if (message.author.bot == true) return;
             const embeds = message.reactions.message.embeds;
             if (embeds.length == 0) {
                 logChannel.send({embeds: [deleteEmbed]});
             } else {
                 embeds.forEach(embed => {
-                    console.log(embed.data.type);
                     if (embed.data.type == 'rich' || 'image' || 'video') return
                     else {
                         logChannel.send({embeds: [deleteEmbed]});
