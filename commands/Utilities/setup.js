@@ -1,5 +1,4 @@
-const {EmbedBuilder, PermissionsBitField} = require('discord.js');
-const { SlashCommandBuilder } = require('discord.js');
+const {EmbedBuilder, SlashCommandBuilder, PermissionsBitField} = require('discord.js');
 module.exports = {
     permissions: [PermissionsBitField.Flags.Administrator],
     guildOnly: true,

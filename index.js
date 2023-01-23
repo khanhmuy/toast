@@ -105,16 +105,24 @@ client.on('interactionCreate', async interaction => {
 
 	//Execute the command
 	try {
-		await command.execute(interaction);
+		await command.execute(interaction, client);
 	} catch (error) {
 		console.log(error);
 		const embed = new EmbedBuilder()
 			.setTitle('Error')
 			.setDescription(`${error}`)
 			.setThumbnail('https://images-ext-1.discordapp.net/external/9yiAQ7ZAI3Rw8ai2p1uGMsaBIQ1roOA4K-ZrGbd0P_8/https/cdn1.iconfinder.com/data/icons/web-essentials-circle-style/48/delete-512.png?width=461&height=461')
-			.setColor('RED')
+			.setColor('#FF6961')
 			.setTimestamp();
-		await interaction.reply({ embeds: [embed], ephemeral: true });
+		try {
+			await interaction.reply({ embeds: [embed], ephemeral: true });
+		} catch(err) {
+			try {
+				await interaction.editReply({ embeds: [embed] });
+			} catch(err) {
+				console.log(err);
+			}
+		}
 	}
 });
 
