@@ -17,12 +17,12 @@ module.exports = {
                 .setDescription('The manga to search for.')
                 .setRequired(true))),
     async execute(interaction) {
-        interaction.deferReply();
+        await interaction.deferReply();
         try {
             if (interaction.options.getSubcommand() === ('anime')) {
                 const name = interaction.options.getString('name');
                 var res = await anilist.search("anime", name, 1, 3);
-                if (!res || !res.media || res.media.length === 0) {return interaction.editReply('No results found.');};
+                if (!res || !res.media || res.media.length === 0) {return interaction.editReply({content: 'No results found.', ephemeral: true})};
                 res = await anilist.media.anime(res.media[0].id);
     
                 let title = res.title.romaji;
@@ -85,7 +85,7 @@ module.exports = {
                 const name = interaction.options.getString('name');
                 var res = await anilist.search("manga", name, 1, 3);
     
-                if (!res || !res.media || res.media.length === 0) {return interaction.editReply('No results found.');};
+                if (!res || !res.media || res.media.length === 0) {return interaction.editReply({content: 'No results found.', ephemeral: true})};
                 res = await anilist.media.manga(res.media[0].id);
     
                 let title = res.title.romaji;

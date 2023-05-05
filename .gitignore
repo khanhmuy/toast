@@ -14,6 +14,7 @@ thumbs.db
 .env
 
 package-lock.json
+pnpm-lock.yaml
 
 # Indev
 /Commands/Music
