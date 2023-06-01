@@ -4,22 +4,25 @@ const axios = require('axios');
 const Vibrant = require('node-vibrant');
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('meme')
-        .setDescription('Sends a random meme!'),
+    .setName('meme')
+    .setDescription('Sends a random meme from various subreddits!'),
     async execute(interaction) {
         try {
             await interaction.deferReply();
-            const res = await axios.get('https://meme-api.herokuapp.com/gimme/1');
+            const res = await axios.get('https://meme-api.com/gimme');
+            console.log(res);
+            last = res.data.preview[res.data.preview.length - 1]
             let color = null;
-            color = await Vibrant.from(res.data.memes[0].url).getPalette();
+            color = await Vibrant.from(last).getPalette();
             color = color.Vibrant.hex;
             const embed = new EmbedBuilder()
                 .setColor(color)
-                .setTitle(res.data.memes[0].title)
-                .setImage(res.data.memes[0].url)
-                .setURL(res.data.memes[0].postLink)
+                .setTitle(res.data.title)
+                .setDescription(`r/${res.data.subreddit}`)
+                .setImage(last)
+                .setURL(res.data.postLink)
                 .setFooter(
-                    {text: `Author: ${res.data.memes[0].author}`}
+                    {text: `Author: ${res.data.author}`}
                 )
             await interaction.editReply({ embeds: [embed]});
         } catch (error) {
