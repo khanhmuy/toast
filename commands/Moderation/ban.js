@@ -25,7 +25,7 @@ module.exports = {
             const replyEmbed = new EmbedBuilder()
             .setTitle('Success!')
             .setDescription(`Banned ${user.tag}`)
-            .setColor('#18DB4C')
+            .setColor('#a6e3a1')
             .setTimestamp()
             .addFields(
                 {name: 'Reason', value: reason},
@@ -39,7 +39,7 @@ module.exports = {
                     {name: 'Moderator', value: `<@!${interaction.user.id}>`, inline: true},
                     {name: 'Reason', value: `${reason}`, inline: true}
                 ])
-                .setColor('#FF6961')
+                .setColor('#f38ba8')
                 .setTimestamp()
             
             try {

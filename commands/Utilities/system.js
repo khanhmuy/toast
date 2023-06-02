@@ -27,7 +27,7 @@ module.exports = {
         const totalSeconds = (interaction.client.uptime / 1000);
         const uptime = convToDays(totalSeconds);
         const embed = new EmbedBuilder()
-			.setColor('#18DB4C')
+			.setColor('#a6e3a1')
 			.setTitle(`System & Process Information for ${interaction.client.user.username}`)
 			.setTimestamp()
 			.setFooter(

@@ -36,7 +36,7 @@ module.exports = {
                     const replyChannel = ('<#' + interaction.client.data.get(`guild.${interaction.guild.id}.logChannel`) + '>');
                     const embed = new EmbedBuilder()
                         .setTitle('Success!')
-                        .setColor('#18DB4C')
+                        .setColor('#a6e3a1')
                         .setTimestamp()
                         .setDescription(`Logging channel is now ${replyChannel}`);
                     await interaction.reply({embeds: [embed], ephemeral: true});
@@ -56,7 +56,7 @@ module.exports = {
                     const replyChannel = ('<#' + interaction.client.data.get(`guild.${interaction.guild.id}.suggestionChannel`) + '>');
                     const embed = new EmbedBuilder()
                         .setTitle('Success!')
-                        .setColor('#18DB4C')
+                        .setColor('#a6e3a1')
                         .setTimestamp()
                         .setDescription(`Suggestion channel is now ${replyChannel}`);
                     await interaction.reply({embeds: [embed], ephemeral: true});

@@ -37,13 +37,13 @@ client.data = new Enmap({
 	cloneLevel: 'deep',
 });
 
-//Define folders
+//Define command folders
 const commandFolders = fs.readdirSync('./commands');
 const loggingFiles = fs.readdirSync('./events/logging').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-//Import commands & events
-console.log('--Events--')
+//Import events and commands
+console.log('// ╔════ Events ════╗ \\')
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
     if (event.once) {
@@ -51,10 +51,10 @@ for (const file of eventFiles) {
     } else {
         client.on(event.name, (...args) => event.execute(...args));
     }
-    console.log(chalk.hex('#808080')('Loaded event ') + chalk.hex('#3c850c')(`${file} - ${require(`./events/${file}`).name} event`));
+    console.log(chalk.hex('#808080')('Loaded event ') + chalk.hex('#a6e3a1')(`${file} - ${require(`./events/${file}`).name} event`));
 }
 
-console.log('--Logging--');
+console.log('// ╔════ Logging ════╗ \\');
 for (const file of loggingFiles) {
 	const event = require(`./events/logging/${file}`);
 	if (event.once) {
@@ -62,10 +62,10 @@ for (const file of loggingFiles) {
 	} else {
 		client.on(event.name, (...args) => event.execute(client, ...args));
 	}
-	console.log(chalk.hex('#808080')('Loaded event ') + chalk.hex('#3c850c')(`${file} - ${require(`./events/logging/${file}`).name} event`));
+	console.log(chalk.hex('#808080')('Loaded event ') + chalk.hex('#a6e3a1')(`${file} - ${require(`./events/logging/${file}`).name} event`));
 }
 
-console.log('--Commands--')
+console.log('// ╔════ Commands ════╗ \\')
 for (const folder of commandFolders) {
     if (folder.endsWith('.js')) {
         console.log(chalk.red(`File (${folder}) not in subdirectory, please move it. File has been ignored.`));
@@ -75,7 +75,7 @@ for (const folder of commandFolders) {
 	for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
         client.commands.set(command.data.name, command);
-        console.log(chalk.hex('#808080')('Loaded command ') + chalk.hex('#3c850c')(`${file} - ${require(`./commands/${folder}/${file}`).data.name}`));
+        console.log(chalk.hex('#808080')('Loaded command ') + chalk.hex('#a6e3a1')(`${file} - ${require(`./commands/${folder}/${file}`).data.name}`));
     }
 }
 
@@ -112,7 +112,7 @@ client.on('interactionCreate', async interaction => {
 			.setTitle('Error')
 			.setDescription(`${error}`)
 			.setThumbnail('https://images-ext-1.discordapp.net/external/9yiAQ7ZAI3Rw8ai2p1uGMsaBIQ1roOA4K-ZrGbd0P_8/https/cdn1.iconfinder.com/data/icons/web-essentials-circle-style/48/delete-512.png?width=461&height=461')
-			.setColor('#FF6961')
+			.setColor('#f38ba8')
 			.setTimestamp();
 		try {
 			await interaction.reply({ embeds: [embed], ephemeral: true });

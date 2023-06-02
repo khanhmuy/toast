@@ -13,7 +13,7 @@ module.exports = {
                 .addFields([
                     {name: 'Age of account', value: `**${moment(member.user.createdAt).format('LLLL')}\n${moment().diff(member.user.createdAt, 'years')} years ago**`}
                 ])
-                .setColor('#18DB4C')
+                .setColor('#a6e3a1')
                 .setFooter({text: `${member.guild.name}`})
                 .setTimestamp();
             logChannel.send({embeds: [embed]});

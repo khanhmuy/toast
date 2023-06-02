@@ -21,7 +21,7 @@ module.exports = {
 			const embed = new EmbedBuilder()
 				.setTitle(`Suggestion #${suggestionnum}`)
 				.setDescription(interaction.options.getString('suggestion'))
-				.setColor('#C0DDFF')
+				.setColor('#94e2d5')
 				.setAuthor({name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 })});
 			const channel = interaction.client.channels.cache.get(interaction.client.data.get(`guild.${interaction.guild.id}.suggestionChannel`));
 			channel.send({ embeds: [embed] }).then(embedMessage => {

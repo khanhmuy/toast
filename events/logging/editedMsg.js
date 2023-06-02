@@ -12,7 +12,7 @@ module.exports = {
             let deleteEmbed = new EmbedBuilder()
                 .setAuthor({name: message.author.username + '#' + message.author.discriminator, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
                 .setDescription(`:pencil2: Message edited in <#${message.channelId}>. [Jump to message](https://discordapp.com/channels/${message.guild.id}/${message.channelId}/${message.id})`)
-                .setColor('#C0DDFF')
+                .setColor('#94e2d5')
                 .addFields([
                     {name: 'Before', value: `${message.content}`},
                     {name: 'After', value: `${message.reactions.message.content}`},

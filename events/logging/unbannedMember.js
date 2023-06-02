@@ -17,7 +17,7 @@ module.exports = {
                     {name: 'Moderator', value: `<@!${fetchedBan.entries.first().executor.id}>`, inline: true}
                 )
                 .setThumbnail(`${member.user.displayAvatarURL({ dynamic: true })}?size=1024`)
-                .setColor('#C0DDFF')
+                .setColor('#94e2d5')
                 .setFooter({text: `${member.guild.name}`})
                 .setTimestamp();
             logChannel.send({embeds: [embed]});

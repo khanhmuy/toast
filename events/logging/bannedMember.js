@@ -19,7 +19,7 @@ module.exports = {
                     {name: 'Moderator', value: `<@!${fetchedBan.entries.first().executor.id}>`, inline: true}
                 )
                 .setThumbnail(`${member.user.displayAvatarURL({ dynamic: true })}?size=1024`)
-                .setColor('#FF6961')
+                .setColor('#f38ba8	')
                 .setFooter(
                     {text: `${member.guild.name}`}
                 )
