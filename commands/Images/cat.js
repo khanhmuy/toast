@@ -9,21 +9,21 @@ module.exports = {
     async execute(interaction) {
         try {
             await interaction.deferReply();
-            const res = await axios.get('https://aws.random.cat/meow')
+            const res = await axios.get('https://api.thecatapi.com/v1/images/search')
             let color = null
-            color = await Vibrant.from(res.data.file).getPalette()
+            color = await Vibrant.from(res.data[0].url).getPalette()
             color = color.Vibrant.hex
             const embed = new EmbedBuilder()
                     .setTitle('Random Cat!')
                     .setColor(color)
                     .setTimestamp()
-                    .setImage(res.data.file)
-                    .setURL(res.data.file)
+                    .setImage(res.data[0].url)
+                    .setURL(res.data[0].url)
                 const row = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
                             .setStyle('Link')
-                            .setURL(res.data.file)
+                            .setURL(res.data[0].url)
                             .setLabel('View Orginal Image')
                     )
             await interaction.editReply({embeds: [embed], components: [row]})
