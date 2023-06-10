@@ -20,22 +20,22 @@ module.exports = {
         try {
             let color = null
             try {
-                const icon = info.data.data[0].packageIcon;
-                if (info.data.data[0].packageIcon.startsWith('http:') || info.data.data[0].packageIcon.startsWith('https:')) {
+                const icon = info.data.data[0].icon;
+                if (info.data.data[0].icon.startsWith('http:') || info.data.data[0].icon.startsWith('https:')) {
                     color = await Vibrant.from(info.data.data[0].icon || 'https://repo.packix.com/api/Packages/60bfb71987ca62001c6585e6/icon/download?size=medium&hash=2').getPalette()
                     color = color.Vibrant.hex
                 } else {
                     color = '#fccc04'
-                    info.data.data[0].packageIcon = undefined
+                    info.data.data[0].icon = undefined
                 }
             } catch {
                 color = '#fccc04'
-                info.data.data[0].packageIcon = undefined
+                info.data.data[0].icon = undefined
             }
             const embed = new EmbedBuilder()
                 .setTitle(info.data.data[0].name || 'what')
                 .setDescription(info.data.data[0].description || 'No description provided.')
-                .setThumbnail(info.data.data[0].packageIcon || 'https://repo.packix.com/api/Packages/60bfb71987ca62001c6585e6/icon/download?size=medium&hash=2')
+                .setThumbnail(info.data.data[0].icon || 'https://repo.packix.com/api/Packages/60bfb71987ca62001c6585e6/icon/download?size=medium&hash=2')
                 .setColor(color || '#fccc04')
                 .addFields([
                     { name: 'Author', value: info.data.data[0].author.toString() || 'Unknown', inline: true },
