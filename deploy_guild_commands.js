@@ -20,7 +20,7 @@ for (const folder of commandFolders) {
 	for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
 		commands.push(command.data.toJSON());
-        console.log(chalk.hex('#808080')('Registered command ') + chalk.hex('#3c850c')(`${file} - ${require(`./commands/${folder}/${file}`).data.name}`));
+        console.log(chalk.hex('#808080')('Registered command ') + chalk.hex('#a6e3a1')(`${file} - ${require(`./commands/${folder}/${file}`).data.name}`));
     }
 }
 
