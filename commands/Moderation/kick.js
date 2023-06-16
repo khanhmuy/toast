@@ -25,7 +25,7 @@ module.exports = {
     
             const replyEmbed = new EmbedBuilder()
                 .setTitle('Success!')
-                .setDescription(`Kicked ${user.tag}`)
+                .setDescription(`Kicked <@!${user.id}> from the server.`)
                 .setColor('#a6e3a1')
                 .setTimestamp()
                 .addFields(

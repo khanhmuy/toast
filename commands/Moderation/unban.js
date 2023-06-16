@@ -15,7 +15,7 @@ module.exports = {
 
             const replyEmbed = new EmbedBuilder()
                 .setTitle('Success!')
-                .setDescription(`Unbanned ${user.tag}`)
+                .setDescription(`Unbanned <@!${user.id}>.`)
                 .setColor('#a6e3a1')
                 .setTimestamp()
             await interaction.editReply({embeds: [replyEmbed], ephemeral: true});

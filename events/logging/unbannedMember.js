@@ -10,8 +10,14 @@ module.exports = {
                 limit: 1,
                 type: AuditLogEvent.GuildBanRemove
             });
+            const discriminator = member.user.discriminator;
+            if (discriminator === '0') {
+                displayName = `${member.user.username}`;
+            } else {
+                displayName = `${member.user.username}#${discriminator}`;
+            }
             const embed = new EmbedBuilder()
-                .setAuthor({name: `${member.user.username}#${member.user.discriminator}`, iconURL: `${member.user.displayAvatarURL({ dynamic: true })}?size=1024}`})
+                .setAuthor({name: `${displayName}`, iconURL: `${member.user.displayAvatarURL({ dynamic: true })}?size=1024}`})
                 .setDescription(`<@!${member.user.id}> has been unbanned from the server.`)
                 .addFields(
                     {name: 'Moderator', value: `<@!${fetchedBan.entries.first().executor.id}>`, inline: true}
