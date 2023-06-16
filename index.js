@@ -99,8 +99,11 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	//Permissions system
-	if (member.permissions.has(command.permissions) === false) {
-		return interaction.reply({content: 'You do not have the required permissions to use this command!', ephemeral: true});
+	if (command.permissions === null || command.permissions === undefined || command.permissions === '') {}
+	else {
+		if (member.permissions.has(command.permissions) === false) {
+			return interaction.reply({content: 'You do not have the required permissions to use this command!', ephemeral: true});
+		}
 	}
 
 	//Execute the command
