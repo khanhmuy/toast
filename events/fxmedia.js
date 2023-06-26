@@ -5,14 +5,14 @@ module.exports = {
         const exec = interaction.client.data.get(`guild.${interaction.guildId}.fxmedia`);
         if (exec === undefined) return;
         const twitter = /^http(?:s)?:\/\/(.*)twitter\.com\//
-        const facebook = /^http(?:s)?:\/\/(.*)www(.*)facebook\.com\//
+        const facebook = /^http(?:s)?:\/\/(.*)(www)?(.*)facebook\.com\//
         if (twitter.test(interaction.content) == true) {
             interaction.suppressEmbeds(true);
             interaction.reply({content: interaction.content.replace(/twitter.com/g, 'vxtwitter.com'), allowedMentions: {repliedUser: false}})
         }
         if (facebook.test(interaction.content) == true) {
             interaction.suppressEmbeds(true);
-            interaction.reply({content: interaction.content.replace(/www.facebook.com/g, 'fxfacebook.beerpsi.tech'), allowedMentions: {repliedUser: false}})
+            interaction.reply({content: interaction.content.replace(/^http(?:s)?:\/\/(.*)(www)?(.*)facebook\.com\//g, 'https://fxfacebook.beerpsi.tech/'), allowedMentions: {repliedUser: false}})
         }
     },
 }
