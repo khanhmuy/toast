@@ -9,8 +9,14 @@ module.exports = {
             } catch {}
             const logChannel = client.channels.cache.get(client.data.get(`guild.${message.guild.id}.logChannel`));
             if (logChannel === undefined) return;
+            const discriminator = interaction.user.discriminator;
+            if (discriminator === '0') {
+                displayName = `${interaction.user.username}`;
+            } else {
+                displayName = `${interaction.user.username}#${discriminator}`;
+            }
             let deleteEmbed = new EmbedBuilder()
-                .setAuthor({name: message.author.username + '#' + message.author.discriminator, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
+                .setAuthor({name: `${displayName}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
                 .setDescription(`:pencil2: Message edited in <#${message.channelId}>. [Jump to message](https://discordapp.com/channels/${message.guild.id}/${message.channelId}/${message.id})`)
                 .setColor('#94e2d5')
                 .addFields([

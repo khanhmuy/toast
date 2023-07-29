@@ -5,8 +5,14 @@ module.exports = {
         try {
             const logChannel = client.channels.cache.get(client.data.get(`guild.${message.guild.id}.logChannel`));
             if (logChannel === undefined) return;
+            const discriminator = interaction.user.discriminator;
+            if (discriminator === '0') {
+                displayName = `${interaction.user.username}`;
+            } else {
+                displayName = `${interaction.user.username}#${discriminator}`;
+            }
             let deleteEmbed = new EmbedBuilder()
-                .setAuthor({name: message.author.username + '#' + message.author.discriminator, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
+                .setAuthor({name: `${displayName}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
                 .setDescription(`:wastebasket: Message deleted in <#${message.channelId}>`)
                 .setColor('#f38ba8	')
                 .addFields([
