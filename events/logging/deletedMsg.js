@@ -1,20 +1,15 @@
-const {EmbedBuilder} = require('discord.js');
+const {Events, EmbedBuilder} = require('discord.js');
 module.exports = {
-    name: 'messageDelete',
+    name: Events.MessageDelete,
+    once: false,
     async execute (client, message) {
         try {
             const logChannel = client.channels.cache.get(client.data.get(`guild.${message.guild.id}.logChannel`));
             if (logChannel === undefined) return;
-            const discriminator = interaction.user.discriminator;
-            if (discriminator === '0') {
-                displayName = `${interaction.user.username}`;
-            } else {
-                displayName = `${interaction.user.username}#${discriminator}`;
-            }
             let deleteEmbed = new EmbedBuilder()
-                .setAuthor({name: `${displayName}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
+                .setAuthor({name: `${message.author.username}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}?size=1024`})
                 .setDescription(`:wastebasket: Message deleted in <#${message.channelId}>`)
-                .setColor('#f38ba8	')
+                .setColor('#F38BA8')
                 .addFields([
                     {name: 'Message', value: `${message.content}`},
                     {name: 'Message ID', value: `${message.id}`, inline: true},
@@ -24,6 +19,8 @@ module.exports = {
                 .setFooter({text: `${message.guild.name}`})
                 .setTimestamp();
             logChannel.send({embeds: [deleteEmbed]});
-        } catch (err) {}
+        } catch (err) {
+            console.log(err);
+        }
     },
 };

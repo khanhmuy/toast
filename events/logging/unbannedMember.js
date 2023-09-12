@@ -1,6 +1,7 @@
-const {EmbedBuilder, AuditLogEvent} = require('discord.js');
+const {Events, EmbedBuilder, AuditLogEvent} = require('discord.js');
 module.exports = {
-    name: 'guildBanRemove',
+    name: Events.GuildBanRemove,
+    once: false,
     async execute(client, member) {
         try {
             const logChannel = client.channels.cache.get(client.data.get(`guild.${member.guild.id}.logChannel`));
@@ -10,14 +11,8 @@ module.exports = {
                 limit: 1,
                 type: AuditLogEvent.GuildBanRemove
             });
-            const discriminator = member.user.discriminator;
-            if (discriminator === '0') {
-                displayName = `${member.user.username}`;
-            } else {
-                displayName = `${member.user.username}#${discriminator}`;
-            }
             const embed = new EmbedBuilder()
-                .setAuthor({name: `${displayName}`, iconURL: `${member.user.displayAvatarURL({ dynamic: true })}?size=1024}`})
+                .setAuthor({name: `${member.user.username}`, iconURL: `${member.user.displayAvatarURL({ dynamic: true })}?size=1024}`})
                 .setDescription(`<@!${member.user.id}> has been unbanned from the server.`)
                 .addFields(
                     {name: 'Moderator', value: `<@!${fetchedBan.entries.first().executor.id}>`, inline: true}

@@ -1,24 +1,18 @@
-const {EmbedBuilder, AuditLogEvent} = require('discord.js');
+const {Events, EmbedBuilder, AuditLogEvent} = require('discord.js');
 module.exports = {
-    name: 'guildBanAdd',
+    name: Events.GuildBanAdd,
+    once: false,
     async execute(client, member) {
         try {
             const logChannel = client.channels.cache.get(client.data.get(`guild.${member.guild.id}.logChannel`));
             if (logChannel === undefined) return;
-
             const fetchedBan = await member.guild.fetchAuditLogs({
                 limit: 1,
                 type: AuditLogEvent.GuildBanAdd
             });
             const reason = fetchedBan.entries.first().reason;
-            const discriminator = member.user.discriminator;
-            if (discriminator === '0') {
-                displayName = `${member.user.username}`;
-            } else {
-                displayName = `${member.user.username}#${discriminator}`;
-            }
             const embed = new EmbedBuilder()
-                .setAuthor({name: `${displayName}`, iconURL: `${member.user.displayAvatarURL({ dynamic: true })}?size=1024}`})
+                .setAuthor({name: `${member.user.username}`, iconURL: `${member.user.displayAvatarURL({ dynamic: true })}?size=1024}`})
                 .setDescription(`:hammer: <@!${member.user.id}> has been banned from the server.`)
                 .addFields(
                     {name: 'Reason', value: `${reason}`, inline: true},
