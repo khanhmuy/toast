@@ -20,12 +20,12 @@ module.exports = {
                         .setRequired(true))
                     .addChannelOption(option => option.setName('channel')
                         .setDescription('The channel to set as the suggestion channel.')
-                        .setRequired(false)))
-            .addSubcommand(command => command.setName('fxmedia')
+                        .setRequired(false))),
+            /*.addSubcommand(command => command.setName('fxmedia')
                 .setDescription('Whether or not to enable social media embed fixes.')
                     .addBooleanOption(option => option.setName('enable')
                         .setDescription('Whether or not to enable social media embed fixes.')
-                        .setRequired(true))),
+                        .setRequired(true))),*/
     async execute(interaction) {
         await interaction.deferReply({ephemeral: true});
         if (interaction.options.getSubcommand() === 'logging') {
@@ -68,7 +68,7 @@ module.exports = {
                     await interaction.editReply({embeds: [embed], ephemeral: true});
                 }
             }
-        } if (interaction.options.getSubcommand() === 'fxmedia') {
+        } /*if (interaction.options.getSubcommand() === 'fxmedia') {
             if (interaction.options.getBoolean('enable') === false) {
                 interaction.client.data.set(`guild.${interaction.guild.id}.fxmedia`, undefined);
                 await interaction.editReply({content: 'Social media embed fixes have been disabled for this guild.', ephemeral: true});
@@ -77,6 +77,6 @@ module.exports = {
                 interaction.client.data.set(`guild.${interaction.guild.id}.fxmedia`, true);
                 await interaction.editReply({content: 'Social media embed fixes have been enabled for this guild.', ephemeral: true});
             }
-        }
+        }*/
     },
 };
