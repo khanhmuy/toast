@@ -21,11 +21,6 @@ module.exports = {
                     .addChannelOption(option => option.setName('channel')
                         .setDescription('The channel to set as the suggestion channel.')
                         .setRequired(false))),
-            /*.addSubcommand(command => command.setName('fxmedia')
-                .setDescription('Whether or not to enable social media embed fixes.')
-                    .addBooleanOption(option => option.setName('enable')
-                        .setDescription('Whether or not to enable social media embed fixes.')
-                        .setRequired(true))),*/
     async execute(interaction) {
         await interaction.deferReply({ephemeral: true});
         if (interaction.options.getSubcommand() === 'logging') {
