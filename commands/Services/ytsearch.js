@@ -17,7 +17,7 @@ module.exports = {
         try {
             const query = interaction.options.getString('query'); 
             const link = `https://www.youtube.com/results?search_query=${query.replace(/\u0020/g, '%20')}`;
-            const result = await ytsr(query, { limit: [8] });
+            const result = await ytsr(query, { limit: [5] });
             const embed = new EmbedBuilder()
                 .setTitle('Results for ' + query)
                 .setDescription(`[Total results](${link}): ${result.results}`)
