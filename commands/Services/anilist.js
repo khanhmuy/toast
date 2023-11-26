@@ -51,6 +51,9 @@ module.exports = {
                 } catch (error) {
                     description = 'No description available.';
                 }
+
+                let genres = res.tags.map(genres => genres.name);
+                genres = `${genres.join(', ')}`
     
                 const embed = new EmbedBuilder()
                     .setTitle(title)
@@ -63,6 +66,7 @@ module.exports = {
                         {name: 'Format', value: `${format}`, inline: true},
                         {name: 'Season', value: `${time}`, inline: true},
                         {name: 'Episodes', value: `${res.episodes} (${duration})`, inline: true},
+                        {name: 'Genres', value: `${genres}`, inline: false}
                     ])
                     .setTimestamp()
                     .setFooter(
@@ -109,6 +113,9 @@ module.exports = {
                 } catch (error) {
                     description = 'No description available.';
                 }
+
+                let genres = res.tags.map(genres => genres.name);
+                genres = `${genres.join(', ')}`
                 
                 let embed = new EmbedBuilder()
                     .setTitle(title)
@@ -121,6 +128,7 @@ module.exports = {
                         {name: 'Format', value: `${format}`, inline: true},
                         {name: 'Chapters', value: `${res.chapters}`, inline: true},
                         {name: 'Volumes', value: `${res.volumes}`, inline: true},
+                        {name: 'Genres', value: `${genres}`, inline: false}
                     ])
                     .setTimestamp()
                     .setFooter(
@@ -128,7 +136,7 @@ module.exports = {
                     )
                 if (res.status === 'NOT_YET_RELEASED') {
                     embed.addFields([
-                        {name: 'Status', value: 'Not yet released', inline: true},
+                        {name: 'Status', value: 'Not yet released.', inline: true},
                     ])
                 } else {
                     embed.addFields([
