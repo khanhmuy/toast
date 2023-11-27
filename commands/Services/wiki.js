@@ -1,7 +1,6 @@
 const Vibrant = require('node-vibrant');
-const { EmbedBuilder } = require('discord.js');
-const tldr = require('wikipedia-tldr');
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const wiki = require('wikipedia');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('wikipedia')
@@ -16,7 +15,7 @@ module.exports = {
         await interaction.deferReply();
         try {
             const query = interaction.options.getString('query');
-            const res = await tldr(query);
+            const res = await wiki.summary(query);
             if (res === null) {
                 interaction.editReply({content: 'No results found.'});
                 return;
@@ -29,7 +28,7 @@ module.exports = {
                 color = color.Vibrant.hex;
             } catch {
                 thumbnail = 'https://en.wikipedia.org/static/images/project-logos/enwiki.png';
-                color = 'BLUE';
+                color = '#89b4fa';
             }
             let extract = '';
             if (res.extract.length > 1024) {
@@ -39,6 +38,7 @@ module.exports = {
             }
             const embed = new EmbedBuilder()
                 .setTitle(res.title)
+                .setURL(res.content_urls.desktop.page)
                 .setThumbnail(thumbnail)
                 .setDescription(res.description)
                 .addFields([
@@ -48,8 +48,8 @@ module.exports = {
                 .setTimestamp()
             interaction.editReply({ embeds: [embed] });
         } catch (error) {
-            console.log(error);
             interaction.editReply({content: 'There was an error while executing this command!', ephemeral: true});
+            console.log(error);
         }
     },
 };
