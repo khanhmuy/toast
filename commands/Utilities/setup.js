@@ -63,15 +63,6 @@ module.exports = {
                     await interaction.editReply({embeds: [embed], ephemeral: true});
                 }
             }
-        } /*if (interaction.options.getSubcommand() === 'fxmedia') {
-            if (interaction.options.getBoolean('enable') === false) {
-                interaction.client.data.set(`guild.${interaction.guild.id}.fxmedia`, undefined);
-                await interaction.editReply({content: 'Social media embed fixes have been disabled for this guild.', ephemeral: true});
-            } else {
-                interaction.client.data.ensure(`guild.${interaction.guild.id}.fxmedia`, true);
-                interaction.client.data.set(`guild.${interaction.guild.id}.fxmedia`, true);
-                await interaction.editReply({content: 'Social media embed fixes have been enabled for this guild.', ephemeral: true});
-            }
-        }*/
+        }
     },
 };
