@@ -13,15 +13,11 @@ module.exports = {
         }),
     async execute(interaction) {
         await interaction.deferReply();
+        let res = null;
         try {
             const query = interaction.options.getString('query');
-            try {
-                const res = await wiki.page(query);
-            } catch (error) {
-                interaction.editReply({content: 'No results found!', ephemeral: true});
-                return;
-            }
-            const summary = await res.summary();
+            const searchResults = await wiki.search(query);
+            const summary = await wiki.summary(searchResults.results[0].title);
             let color = null;
             let thumbnail = '';
             try {
