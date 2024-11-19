@@ -13,10 +13,13 @@ module.exports = {
         }),
     async execute(interaction) {
         await interaction.deferReply();
-        let res = null;
         try {
             const query = interaction.options.getString('query');
             const searchResults = await wiki.search(query);
+            if (searchResults.results.length === 0) {
+                interaction.editReply({content: 'No results found!'});
+                return;
+            }
             const summary = await wiki.summary(searchResults.results[0].title);
             let color = null;
             let thumbnail = '';
@@ -38,12 +41,14 @@ module.exports = {
                 .setTitle(summary.title)
                 .setURL(summary.content_urls.desktop.page)
                 .setThumbnail(thumbnail)
-                .setDescription(summary.description)
                 .addFields([
                     {name: '\u200b', value: extract}
                 ])
                 .setColor(color)
                 .setTimestamp()
+            if (summary.description !== undefined) {
+                embed.setDescription(summary.description);
+            }
             interaction.editReply({ embeds: [embed] });
         } catch (error) {
             interaction.editReply({content: 'There was an error while executing this command!', ephemeral: true});
